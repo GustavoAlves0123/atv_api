@@ -94,7 +94,7 @@ app.put("/dogs/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const id = req.params.id;
     try {
         const objectId = new mongodb_1.ObjectId(id);
-        let conn = null;
+        let conn = null; // Variável que armazena a conexão com Banco de Dados
         try {
             conn = yield (0, db_1.default)();
             const db = conn.db();
@@ -126,6 +126,34 @@ app.put("/dogs/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* (
                     $set: dog
                 });
                 res.status(200).json(dog);
+            }
+            else {
+                res.status(404).json({ message: "Não existe cachorro com esse id." });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+        finally {
+            conn === null || conn === void 0 ? void 0 : conn.close();
+        }
+    }
+    catch (error) {
+        res.status(400).json({ message: "O id informado é inválido." });
+    }
+}));
+app.delete("/dogs/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    try {
+        const objectId = new mongodb_1.ObjectId(id);
+        let conn = null; // Variável que armazena a conexão com Banco de Dados
+        try {
+            conn = yield (0, db_1.default)();
+            const db = conn.db();
+            const dogs = db.collection("dogs");
+            if ((yield dogs.find({ _id: objectId }).count()) > 0) {
+                yield dogs.deleteOne({ _id: objectId });
+                res.status(204).send("");
             }
             else {
                 res.status(404).json({ message: "Não existe cachorro com esse id." });

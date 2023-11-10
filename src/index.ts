@@ -57,11 +57,29 @@ app.post("/dogs", async (req: Request, res: Response) => {
         if (record.idade <= 0) {
             throw new Error("O atributo idade não é válido.");
         }
+        if (typeof record.raça != "string") {
+            throw new Error("O atributo raça não foi informado.");
+        }
+        if (record.raça === "") {
+            throw new Error("O atributo raça não é válido.");
+        }
+        if (typeof record.porte != "string") {
+            throw new Error("O atributo porte não foi informado.");
+        }
+        if (record.porte === "") {
+            throw new Error("O atributo porte não é válido.");
+        }
+        if (typeof record.cor != "string") {
+            throw new Error("O atributo cor não foi informado.");
+        }
+        if (record.cor === "") {
+            throw new Error("O atributo cor não é válido.");
+        }
     } catch (error) {
         res.status(400).json({message: (error as Error).message});
         return;
     }
-    const dog = new Dog(record.nome, record.idade);
+    const dog = new Dog(record.nome, record.idade, record.raça, record.porte, record.cor);
     let conn: MongoClient | null = null;
     try {
         conn = await getMongoConn();
@@ -100,12 +118,30 @@ app.put("/dogs/:id", async (req: Request, res: Response) => {
                     if (record.idade <= 0) {
                         throw new Error("O atributo idade não é válido.");
                     }
+                    if (typeof record.raça != "string") {
+                        throw new Error("O atributo raça não foi informado.");
+                    }
+                    if (record.raça === "") {
+                        throw new Error("O atributo raça não é válido.");
+                    }
+                    if (typeof record.porte != "string") {
+                        throw new Error("O atributo porte não foi informado.");
+                    }
+                    if (record.porte === "") {
+                        throw new Error("O atributo porte não é válido.");
+                    }
+                    if (typeof record.cor != "string") {
+                        throw new Error("O atributo cor não foi informado.");
+                    }
+                    if (record.cor === "") {
+                        throw new Error("O atributo cor não é válido.");
+                    }
                 } catch (error) {
                     res.status(400).json({message: (error as Error).message});
                     return;
                 }
 
-                const dog = new Dog(record.nome, record.idade);
+                const dog = new Dog(record.nome, record.idade, record.raça, record.porte, record.cor);
                 await dogs.updateOne({
                     _id: objectId
                 }, {
