@@ -137,7 +137,8 @@ app.delete("/dogs/:id", async (req: Request, res: Response) => {
             const db = conn.db();
             const dogs = db.collection("dogs");
             if (await dogs.find({ _id: objectId }).count() > 0) {
-
+                await dogs.deleteOne({ _id: objectId });
+                res.status(204).send("");
             } else {
                 res.status(404).json({message: "Não existe cachorro com esse id."});
             }
