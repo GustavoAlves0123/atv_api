@@ -3,13 +3,13 @@ export default class Dog {
     idade: number;
     raça: string;
     porte: string;
-    peso: number;
+    cor: string;
 
-    constructor (nome: string, idade: number, raça: string, porte: string, peso: number) {
+    constructor (nome: string, idade: number, raça: string, porte: string, cor: string) {
         this.nome = nome;
         this.idade = idade;
         this.raça = raça;
         this.porte = porte;
-        this.peso = peso;
+        this.cor = cor;
     }
 }
