@@ -69,12 +69,30 @@ app.post("/dogs", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (record.idade <= 0) {
             throw new Error("O atributo idade não é válido.");
         }
+        if (typeof record.raça != "string") {
+            throw new Error("O atributo raça não foi informado.");
+        }
+        if (record.raça === "") {
+            throw new Error("O atributo raça não é válido.");
+        }
+        if (typeof record.porte != "string") {
+            throw new Error("O atributo porte não foi informado.");
+        }
+        if (record.porte === "") {
+            throw new Error("O atributo porte não é válido.");
+        }
+        if (typeof record.cor != "string") {
+            throw new Error("O atributo cor não foi informado.");
+        }
+        if (record.cor === "") {
+            throw new Error("O atributo cor não é válido.");
+        }
     }
     catch (error) {
         res.status(400).json({ message: error.message });
         return;
     }
-    const dog = new dog_js_1.default(record.nome, record.idade);
+    const dog = new dog_js_1.default(record.nome, record.idade, record.raça, record.porte, record.cor);
     let conn = null;
     try {
         conn = yield (0, db_1.default)();
@@ -114,12 +132,30 @@ app.put("/dogs/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* (
                     if (record.idade <= 0) {
                         throw new Error("O atributo idade não é válido.");
                     }
+                    if (typeof record.raça != "string") {
+                        throw new Error("O atributo raça não foi informado.");
+                    }
+                    if (record.raça === "") {
+                        throw new Error("O atributo raça não é válido.");
+                    }
+                    if (typeof record.porte != "string") {
+                        throw new Error("O atributo porte não foi informado.");
+                    }
+                    if (record.porte === "") {
+                        throw new Error("O atributo porte não é válido.");
+                    }
+                    if (typeof record.cor != "string") {
+                        throw new Error("O atributo cor não foi informado.");
+                    }
+                    if (record.cor === "") {
+                        throw new Error("O atributo cor não é válido.");
+                    }
                 }
                 catch (error) {
                     res.status(400).json({ message: error.message });
                     return;
                 }
-                const dog = new dog_js_1.default(record.nome, record.idade);
+                const dog = new dog_js_1.default(record.nome, record.idade, record.raça, record.porte, record.cor);
                 yield dogs.updateOne({
                     _id: objectId
                 }, {
